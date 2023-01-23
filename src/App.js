@@ -19,7 +19,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} /> */}
         <Route path="/" element={<Home searchText={searchText}/>} />
         <Route path="/search/:searchText/" element={<Search searchText={searchText}/>}/>
-        <Route path="/videos" element={<Videos />} />
+        <Route path="/videos" element={<Videos searchText={searchText}/>} />
         <Route path="/leaderboard" element={<Challenges />} />
         <Route path="/challenges" element={<Leaderboard />} />
 

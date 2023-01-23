@@ -6,7 +6,7 @@ import { BsThreeDots } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = ({ searchTerm }) => {
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState("flower");
   const [view, setView] = useState(false);
   const navigate = useNavigate();
 
@@ -22,7 +22,6 @@ const Navbar = ({ searchTerm }) => {
     navigate(`/search/${searchText}/`);
     setView(true);
   };
-  console.log(searchTerm);
   return (
     <div className={`"w-full relative" ${view ? "h-16" : "h-[500px]"}`}>
       {view ? (
