@@ -17,6 +17,7 @@ const Home = ({searchText}) => {
       .then((response) => setPhotos(response.data.hits))
       .catch((error) => console.log(error));
   }, [searchText]);
+  console.log(photos)
   return (
     <div className=" w-full h-full bg-white">
       <NavMenu />

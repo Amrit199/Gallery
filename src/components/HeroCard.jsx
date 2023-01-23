@@ -72,6 +72,14 @@ const HeroCard = ({ open, close, model }) => {
             </div>
             {/* image */}
             <div className="w-full">
+              {model.videos && model.videos ? 
+              <video
+                src={model.videos.medium.url}
+                autoPlay={true}
+                controls={true}
+                className="w-full object-contain"
+                /> 
+              : 
               <img
                 src={model.webformatURL}
                 alt="hero images"
@@ -80,6 +88,7 @@ const HeroCard = ({ open, close, model }) => {
                   e.stopPropagation();
                 }}
               />
+              }
             </div>
             {/* bottom tool section */}
             <div className=" w-[90%] mx-auto flex text-gray-500 items-center justify-between">
