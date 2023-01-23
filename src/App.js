@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import { AuthContextProvider } from "./context/AuthContext";
+import Challenges from "./pages/Challenges";
+import Home from "./pages/Home";
+import Videos from "./pages/Videos";
+import Leaderboard from "./pages/Leaderboard";
+import Search from "./pages/Search";
 
 function App() {
+  const location = useLocation();
+  const [searchText, setSearchText] = useState('')
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthContextProvider>
+      <Navbar searchTerm={(text) => setSearchText(text)}/>
+      <Routes location={location} key={location.pathname}>
+        {/* <Route path="/" element={<Signin />} />
+          <Route path="/signup" element={<SignUp />} /> */}
+        <Route path="/" element={<Home searchText={searchText}/>} />
+        <Route path="/search/:searchText/" element={<Search searchText={searchText}/>}/>
+        <Route path="/videos" element={<Videos />} />
+        <Route path="/leaderboard" element={<Challenges />} />
+        <Route path="/challenges" element={<Leaderboard />} />
+
+        {/* <Route path="/account" element={
+            <Protected>
+              <Account />
+            </Protected>}
+        /> */}
+      </Routes>
+    </AuthContextProvider>
   );
 }
 
