@@ -15,7 +15,7 @@ const Signin = () => {
     setError("");
     try {
       await signIn(email, password);
-      navigate("/account");
+      navigate("/");
     } catch (err) {
       const message = err.code.split("/");
       if (message[1] === "user-not-found") {
@@ -28,7 +28,7 @@ const Signin = () => {
     }
   };
   return (
-    <div className="w-full h-screen bg-[url('https://cdn.pixabay.com/photo/2017/11/04/08/14/tree-2916763_960_720.jpg')] bg-cover">
+    <div className=" fixed top-0 left-0 bottom-0 w-full h-full">
       <div className="text-center p-6 text-white">
         <h1 className="text-3xl font-bold">Welcome to the Image Gallery</h1>
         <h3 className="text-xl">Please Login or create account and</h3>

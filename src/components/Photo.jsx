@@ -23,12 +23,20 @@ const Photo = ({ data, modelimg, modelset }) => {
       onMouseLeave={() => setTip(false)}
     >
       {/* background image */}
-      <img
-        src={data.webformatURL}
-        alt={data.tags}
-        className="w-full hover:brightness-75"
-        onClick={handleClick}
-      />
+      {data.videos && data.videos ? (
+        <video
+          src={data.videos.tiny.url}
+          className="w-full hover:brightness-75"
+          onClick={handleClick}
+        />
+      ) : (
+        <img
+          src={data.webformatURL}
+          alt={data.tags}
+          className="w-full hover:brightness-75"
+          onClick={handleClick}
+        />
+      )}
       {/* collect and like icon */}
       {tip ? (
         <div className="absolute top-3 right-4 flex items-center gap-2">

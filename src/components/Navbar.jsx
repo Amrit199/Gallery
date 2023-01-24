@@ -6,15 +6,15 @@ import { BsThreeDots } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = ({ searchTerm }) => {
-  const [searchText, setSearchText] = useState("flower");
+  const [searchText, setSearchText] = useState("");
   const [view, setView] = useState(false);
   const navigate = useNavigate();
 
   const handleView = () => {
-    setView(false)
-    setSearchText("")
-    searchTerm("")
-  }
+    setView(false);
+    setSearchText("");
+    searchTerm("");
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -65,14 +65,22 @@ const Navbar = ({ searchTerm }) => {
           ""
         )}
         <div className=" flex items-center gap-4">
-          <button className=" bg-white text-black p-3 font-bold rounded-lg">
-            Join
-          </button>
-          <AiOutlineMenu color={`${view ? "black" : "white"}`} size={30} className=" cursor-pointer" />
+          <Link to={"/signin"}>
+            <button className={view ? "bg-black text-white p-3 font-bold rounded-xl" : "bg-white text-black p-3 font-bold rounded-xl"}>
+              Join
+            </button>
+          </Link>
+          <AiOutlineMenu
+            color={`${view ? "black" : "white"}`}
+            size={30}
+            className=" cursor-pointer"
+          />
         </div>
       </div>
       {/* search bar and titles */}
-      {view ? "" : (
+      {view ? (
+        ""
+      ) : (
         <div className=" absolute w-full px-7 top-[50%] left-[50%] transfrom translate-x-[-50%] translate-y-[-50%]">
           <div className="w-full flex flex-col items-start gap-6 text-white">
             <h1 className=" text-4xl">
