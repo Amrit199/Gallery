@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import VideoCard from "../components/VideoCard";
 import NavMenu from "../components/NavMenu";
+import ItemCard from "../components/ItemCard";
 
 const Videos = ({ searchText }) => {
   const [videos, setVideos] = useState("");
@@ -20,7 +20,7 @@ const Videos = ({ searchText }) => {
     <div className=" w-full h-full bg-white">
       <NavMenu />
 
-      <VideoCard videos={videos} />
+      <ItemCard photos={videos} />
     </div>
   );
 };

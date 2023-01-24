@@ -15,30 +15,36 @@ const NavMenu = () => {
         >
           Home
         </NavLink>
-        <NavLink 
-            to={"/videos"}
-            className={({ isActive }) =>
-              isActive
-                ? "text-white bg-black py-3 px-5 rounded-3xl"
-                : "transition-colors hover:text-black"
-            }
-            >Videos</NavLink>
         <NavLink
-            to={"/leaderboard"}
-            className={({ isActive }) =>
-              isActive
-                ? "text-white bg-black py-3 px-5 rounded-3xl"
-                : "transition-colors hover:text-black"
-            }
-            >Leaderboard</NavLink>
+          to={"/videos"}
+          className={({ isActive }) =>
+            isActive
+              ? "text-white bg-black py-3 px-5 rounded-3xl"
+              : "transition-colors hover:text-black"
+          }
+        >
+          Videos
+        </NavLink>
         <NavLink
-            to={"/challenges"}
-            className={({ isActive }) =>
-              isActive
-                ? "text-white bg-black py-3 px-5 rounded-3xl"
-                : "transition-colors hover:text-black"
-            }
-            >Challenges</NavLink>
+          to={"/leaderboard"}
+          className={({ isActive }) =>
+            isActive
+              ? "text-white bg-black py-3 px-5 rounded-3xl"
+              : "transition-colors hover:text-black"
+          }
+        >
+          Leaderboard
+        </NavLink>
+        <NavLink
+          to={"/challenges"}
+          className={({ isActive }) =>
+            isActive
+              ? "text-white bg-black py-3 px-5 rounded-3xl"
+              : "transition-colors hover:text-black"
+          }
+        >
+          Challenges
+        </NavLink>
       </div>
     </div>
   );

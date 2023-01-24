@@ -5,7 +5,7 @@ import { useState } from "react";
 import ItemCard from "../components/ItemCard";
 import NavMenu from "../components/NavMenu";
 
-const Home = ({searchText}) => {
+const Home = ({ searchText }) => {
   const [photos, setPhotos] = useState("");
   // const [search, setSearch] = useState("");
 
@@ -17,7 +17,7 @@ const Home = ({searchText}) => {
       .then((response) => setPhotos(response.data.hits))
       .catch((error) => console.log(error));
   }, [searchText]);
-  console.log(photos)
+  console.log(photos);
   return (
     <div className=" w-full h-full bg-white">
       <NavMenu />
@@ -25,8 +25,8 @@ const Home = ({searchText}) => {
       <div className=" w-full flex items-center justify-between px-4 py-6">
         <h2 className=" text-2xl">Free Stock Photos</h2>
         <select className=" border border-gray-300 p-4 rounded-lg hover:border-black">
-            <option value="trending">Trending</option>
-            <option value="new">New</option>
+          <option value="trending">Trending</option>
+          <option value="new">New</option>
         </select>
       </div>
 
