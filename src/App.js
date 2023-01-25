@@ -8,8 +8,6 @@ import Videos from "./pages/Videos";
 import Leaderboard from "./pages/Leaderboard";
 import Search from "./pages/Search";
 import SearchVideos from "./pages/SearchVideos";
-import Signin from "./pages/Signin"
-import SignUp from "./pages/SignUp"
 
 function App() {
   const location = useLocation();
@@ -18,8 +16,6 @@ function App() {
     <AuthContextProvider>
       <Navbar searchTerm={(text) => setSearchText(text)}/>
       <Routes location={location} key={location.pathname}>
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/signup" element={<SignUp />} />
         <Route path="/" element={<Home searchText={searchText}/>} />
         <Route path="/search/:searchText/" element={<Search searchText={searchText}/>}/>
         <Route path="/search/videos/:searchText" element={<SearchVideos searchText={searchText} />} />
