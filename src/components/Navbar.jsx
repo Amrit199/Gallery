@@ -4,11 +4,13 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
+import Signin from "../pages/Signin";
 
 const Navbar = ({ searchTerm }) => {
   const [searchText, setSearchText] = useState("");
   const [view, setView] = useState(false);
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
 
   const handleView = () => {
     setView(false);
@@ -23,12 +25,13 @@ const Navbar = ({ searchTerm }) => {
     setView(true);
   };
   return (
-    <div className={`"w-full relative" ${view ? "h-16" : "h-[500px]"}`}>
+    <div className={`"w-full relative" ${view ? "h-16" : "h-[450px] w-full relative"}`}>
       {view ? (
         ""
       ) : (
         <img
-          src="/assets/hero.jpg"
+          src="https://cdn.pixabay.com/photo/2015/07/09/22/45/tree-838667_960_720.jpg"
+          // src="/assets/hero.jpg"
           alt="hero"
           className="w-full h-full object-cover brightness-50"
         />
@@ -65,11 +68,16 @@ const Navbar = ({ searchTerm }) => {
           ""
         )}
         <div className=" flex items-center gap-4">
-          <Link to={"/signin"}>
-            <button className={view ? "bg-black text-white p-3 font-bold rounded-xl" : "bg-white text-black p-3 font-bold rounded-xl"}>
-              Join
-            </button>
-          </Link>
+          <button
+            onClick={() => setShowModal(true)}
+            className={
+              view
+                ? "bg-black text-white p-3 font-bold rounded-xl"
+                : "bg-white text-black p-3 font-bold rounded-xl"
+            }
+          >
+            Join
+          </button>
           <AiOutlineMenu
             color={`${view ? "black" : "white"}`}
             size={30}
@@ -82,8 +90,8 @@ const Navbar = ({ searchTerm }) => {
         ""
       ) : (
         <div className=" absolute w-full px-7 top-[50%] left-[50%] transfrom translate-x-[-50%] translate-y-[-50%]">
-          <div className="w-full flex flex-col items-start gap-6 text-white">
-            <h1 className=" text-4xl">
+          <div className=" w-full md:w-[60%] mx-auto flex flex-col items-start gap-6 text-white">
+            <h1 className=" text-4xl text-center">
               The best free stock photos, royalty free images shared by
               creators.
             </h1>
@@ -130,6 +138,7 @@ const Navbar = ({ searchTerm }) => {
           {/* <Searchbar searchTerm={searchTerm}/> */}
         </div>
       )}
+      {showModal && <Signin closeModal={() => setShowModal(false)} />}
     </div>
   );
 };
