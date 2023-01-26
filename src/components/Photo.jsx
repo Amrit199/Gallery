@@ -16,6 +16,29 @@ const Photo = ({ data, modelimg, modelset }) => {
     modelimg(data);
     modelset(true);
   };
+  const handleDownload = async (imageUrl) => {
+    try {
+      if(imageUrl === data.webformatURL) {
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = "image";
+        a.click();
+      } else {
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = "Video";
+        a.click();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div
       className=" w-full relative cursor-pointer"
@@ -108,6 +131,7 @@ const Photo = ({ data, modelimg, modelset }) => {
             className=" bg-white rounded-lg p-2"
             onMouseEnter={() => setDownload(true)}
             onMouseLeave={() => setDownload(false)}
+            onClick={() => handleDownload(data.webformatURL ? data.webformatURL : data.videos.tiny.url)}
           />
           {download ? (
             <p className=" absolute bg-white bottom-11 right-0 p-1 text-sm rounded-lg">

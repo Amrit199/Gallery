@@ -13,6 +13,21 @@ import { SlUserFollow } from "react-icons/sl";
 const HeroCard = ({ open, close, model }) => {
   const [icon, setIcon] = useState(false);
   const [like, setLike] = useState(false);
+
+  const handleDownload = async (imageUrl) => {
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "image";
+      a.click();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(model)
   if (!open) return null;
   return (
     <div>
@@ -66,7 +81,7 @@ const HeroCard = ({ open, close, model }) => {
                 </div>
               </div>
               <div className=" flex items-center font-bold text-white rounded-lg">
-                <button className="bg-[#29AB87] hover:bg-[#01796F] px-4 py-3 border-r border-gray-700 rounded-l-lg">
+                <button onClick={() => handleDownload(model.webformatURL)} className="bg-[#29AB87] hover:bg-[#01796F] px-4 py-3 border-r border-gray-700 rounded-l-lg">
                   Free download
                 </button>
                 <button className="bg-[#29AB87] hover:bg-[#01796F] px-4 py-3 rounded-r-lg">
