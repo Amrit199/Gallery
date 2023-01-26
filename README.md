@@ -1,6 +1,6 @@
 # Gallery with Pixabay, React, Taiwind and Firebase
 
-## <a href="https://pexel-clone-sigma.vercel.app/">Demo</a>
+## <a href="https://gallery-image-react-tailwind.vercel.app/">Demo</a>
 
 Gallery is a collection of high resolution photos. It was build with:
 
