@@ -37,7 +37,6 @@ const HeroCard = ({ open, close, model }) => {
       console.log(error);
     }
   };
-  console.log(model)
   if (!open) return null;
   return (
     <div>

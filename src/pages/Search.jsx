@@ -18,11 +18,25 @@ const Search = ({ searchText }) => {
     <div className=" w-full h-full">
       <h2 className=" w-full px-4 py-6 text-3xl">Free {searchText} Photos</h2>
       <div className=" w-full px-7 py-4 flex items-center gap-8">
-        <NavLink to={`/search/${searchText}`}>
-          <button className=" p-4 bg-blue-600 rounded-full">Photos</button>
+        <NavLink
+          to={`/search/${searchText}`}
+          className={({ isActive }) =>
+            isActive
+              ? "text-white bg-black py-3 px-5 rounded-3xl"
+              : "transition-colors hover:text-black"
+          }
+        >
+          Photos
         </NavLink>
-        <NavLink to={`/search/videos/${searchText}`}>
-          <button>Videos</button>
+        <NavLink
+          to={`/search/videos/${searchText}`}
+          className={({ isActive }) =>
+            isActive
+              ? "text-white bg-black py-3 px-5 rounded-3xl"
+              : "transition-colors hover:text-black"
+          }
+        >
+          Videos
         </NavLink>
       </div>
 
