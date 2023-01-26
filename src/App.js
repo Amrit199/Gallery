@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import { AuthContextProvider } from "./context/AuthContext";
-import Challenges from "./pages/Challenges";
 import Home from "./pages/Home";
 import Videos from "./pages/Videos";
-import Leaderboard from "./pages/Leaderboard";
 import Search from "./pages/Search";
 import SearchVideos from "./pages/SearchVideos";
 
@@ -20,8 +18,6 @@ function App() {
         <Route path="/search/:searchText/" element={<Search searchText={searchText}/>}/>
         <Route path="/search/videos/:searchText" element={<SearchVideos searchText={searchText} />} />
         <Route path="/videos" element={<Videos searchText={searchText}/>} />
-        <Route path="/leaderboard" element={<Challenges />} />
-        <Route path="/challenges" element={<Leaderboard />} />
 
         {/* <Route path="/account" element={
             <Protected>

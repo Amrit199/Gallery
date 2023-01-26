@@ -17,14 +17,25 @@ const Home = ({ searchText }) => {
       .then((response) => setPhotos(response.data.hits))
       .catch((error) => console.log(error));
   }, [searchText]);
-  console.log(photos);
+
+  const [data, setData] = useState("")
+  const onSelectionChange = (e) => {
+    e.preventDefault()
+    setData(e.target.value)
+
+    if(data === "new") {
+      photos.sort((a, b) => a.views - b.views)
+    } else if(data === "trending") {
+      photos.sort((a, b) => b.likes - a.likes)
+    }
+  }
   return (
     <div className=" w-full h-full bg-white">
       <NavMenu />
 
       <div className=" w-full flex items-center justify-between px-4 py-6">
         <h2 className=" text-2xl">Free Stock Photos</h2>
-        <select className=" border border-gray-300 p-4 rounded-lg hover:border-black">
+        <select onChange={onSelectionChange} className=" border border-gray-300 p-4 rounded-lg hover:border-black">
           <option value="trending">Trending</option>
           <option value="new">New</option>
         </select>

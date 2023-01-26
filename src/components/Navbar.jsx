@@ -91,7 +91,7 @@ const Navbar = ({ searchTerm }) => {
       ) : (
         <div className=" absolute w-full px-7 top-[50%] left-[50%] transfrom translate-x-[-50%] translate-y-[-50%]">
           <div className=" w-full md:w-[60%] mx-auto flex flex-col items-start gap-6 text-white">
-            <h1 className=" text-4xl text-center">
+            <h1 className=" text-3xl md:text-4xl text-center">
               The best free stock photos, royalty free images shared by
               creators.
             </h1>
@@ -112,7 +112,7 @@ const Navbar = ({ searchTerm }) => {
                 />
               </form>
             </div>
-            <div className="flex gap-2 items-center">
+            <div className="flex flex-wrap gap-2 items-center">
               <span className=" text-white/70">Trending:</span>
               <p className="font-bold cursor-pointer hover:text-white/70">
                 crap,

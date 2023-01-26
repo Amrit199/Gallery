@@ -30,8 +30,9 @@ const HeroCard = ({ open, close, model }) => {
           {/* body section */}
           <div className=" w-full md:w-[80%] lg:w-[70%] mx-auto p-3 py-6 bg-white rounded-lg flex flex-col gap-3">
             {/* top tool section */}
-            <div className=" w-full flex items-center justify-between relative">
+            <div className=" w-full flex flex-col md:flex-row gap-3 items-center justify-between relative">
               <div className=" flex items-center gap-2">
+                <div className=" relative">
                 <MdOutlineCollectionsBookmark
                   size={55}
                   color="black"
@@ -46,6 +47,8 @@ const HeroCard = ({ open, close, model }) => {
                 ) : (
                   ""
                 )}
+                </div>
+                <div className=" relative">
                 <AiOutlineHeart
                   size={55}
                   color="black"
@@ -54,12 +57,13 @@ const HeroCard = ({ open, close, model }) => {
                   onMouseLeave={() => setLike(false)}
                 />
                 {like ? (
-                  <p className=" absolute bg-white top-14 left-14 p-1 text-sm rounded-lg">
+                  <p className=" absolute bg-white top-14 left-0 p-1 text-sm rounded-lg">
                     Like
                   </p>
                 ) : (
                   ""
                 )}
+                </div>
               </div>
               <div className=" flex items-center font-bold text-white rounded-lg">
                 <button className="bg-[#29AB87] hover:bg-[#01796F] px-4 py-3 border-r border-gray-700 rounded-l-lg">
@@ -74,7 +78,7 @@ const HeroCard = ({ open, close, model }) => {
             <div className="w-full">
               {model.videos && model.videos ? (
                 <video
-                  src={model.videos.medium.url}
+                  src={model.videos.tiny.url}
                   autoPlay={true}
                   controls={true}
                   className="w-full object-contain"
@@ -112,9 +116,9 @@ const HeroCard = ({ open, close, model }) => {
                 <img
                   src={model.userImageURL}
                   alt="user"
-                  className="w-20 rounded-full"
+                  className="w-14 md:w-20 rounded-full"
                 />
-                <p className="text-xl font-bold">{model.user}</p>
+                <p className=" text-base md:text-xl font-bold">{model.user}</p>
               </button>
               <button className=" border border-gray-500 hover:border-black p-3 rounded-lg">
                 <SlUserFollow size={25} />
