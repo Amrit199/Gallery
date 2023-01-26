@@ -16,13 +16,23 @@ const HeroCard = ({ open, close, model }) => {
 
   const handleDownload = async (imageUrl) => {
     try {
-      const response = await fetch(imageUrl);
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = "image";
-      a.click();
+      if(imageUrl === model.webformatURL) {
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = "image";
+        a.click();
+      } else {
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = "Video";
+        a.click();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -81,7 +91,7 @@ const HeroCard = ({ open, close, model }) => {
                 </div>
               </div>
               <div className=" flex items-center font-bold text-white rounded-lg">
-                <button onClick={() => handleDownload(model.webformatURL)} className="bg-[#29AB87] hover:bg-[#01796F] px-4 py-3 border-r border-gray-700 rounded-l-lg">
+                <button onClick={() => handleDownload(model.webformatURL ? model.webformatURL : model.videos.tiny.url)} className="bg-[#29AB87] hover:bg-[#01796F] px-4 py-3 border-r border-gray-700 rounded-l-lg">
                   Free download
                 </button>
                 <button className="bg-[#29AB87] hover:bg-[#01796F] px-4 py-3 rounded-r-lg">
