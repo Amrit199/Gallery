@@ -11,6 +11,17 @@ const Signin = ({ closeModal }) => {
   const navigate = useNavigate();
   const { signIn } = UserAuth();
 
+  // added from signup page
+  const { createUser } = UserAuth
+  const handleNewuser = async (e) => {
+    e.preventDefault()
+    try {
+      await createUser(email, password)
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -28,7 +39,6 @@ const Signin = ({ closeModal }) => {
       }
     }
   };
-  const handleCreate = () => {}
   const [isLogin, setIsLogin] = useState(true);
   return (
     <div className="fixed top-0 left-0 h-full w-full bg-gray-900 bg-opacity-50 z-50">
@@ -90,7 +100,7 @@ const Signin = ({ closeModal }) => {
                   <button className="text-red-600 transition-colors hover:text-red-900" onClick={() => setIsLogin(true)}>Sign In</button>
                 </span>
               </h2>
-              <form onSubmit={handleCreate}>
+              <form onSubmit={handleNewuser}>
                 <div className="my-4">
                   <label className="py-2">Email Address</label>
                   <input

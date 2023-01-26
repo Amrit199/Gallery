@@ -15,10 +15,30 @@ const Videos = ({ searchText }) => {
       .then((response) => setVideos(response.data.hits))
       .catch((error) => console.log(error));
   }, [searchText]);
-  console.log(videos);
+
+  const [data, setData] = useState("")
+  const onSelectionChange = (e) => {
+    e.preventDefault()
+    setData(e.target.value)
+
+    if(data === "new") {
+      videos.sort((a, b) => a.views - b.views)
+    } else if(data === "trending") {
+      videos.sort((a, b) => b.likes - a.likes)
+    }
+  }
+
   return (
     <div className=" w-full h-full bg-white">
       <NavMenu />
+
+      <div className=" w-full flex items-center justify-between px-4 py-6">
+        <h2 className=" text-2xl">Free Stock Videos</h2>
+        <select onChange={onSelectionChange} className=" border border-gray-300 p-4 rounded-lg hover:border-black">
+          <option value="trending">Trending</option>
+          <option value="new">New</option>
+        </select>
+      </div>
 
       <ItemCard photos={videos} />
     </div>
