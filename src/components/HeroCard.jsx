@@ -112,7 +112,7 @@ const HeroCard = ({ open, close, model }) => {
 
             {/* user info */}
             <div className="w-[90%] mx-auto flex text-gray-500 items-center justify-between">
-              <button className=" flex items-center gap-2 hover:text-black">
+              <button className=" flex flex-wrap items-center gap-2 hover:text-black">
                 <img
                   src={model.userImageURL}
                   alt="user"
