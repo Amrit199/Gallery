@@ -7,7 +7,7 @@ const ItemCard = ({ photos }) => {
   const [model, setModel] = useState("");
   const [openModel, setOpenModel] = useState(false);
   return (
-    <div className="w-full h-full px-4">
+    <div className="w-full h-full p-4">
       <div className="w-full h-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-center justify-center">
         {photos &&
           photos.map((item, index) => (

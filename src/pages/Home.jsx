@@ -33,9 +33,9 @@ const Home = ({ searchText }) => {
     <div className=" w-full h-full bg-white">
       <NavMenu />
 
-      <div className=" w-full flex items-center justify-between px-4 py-6">
-        <h2 className=" text-2xl">Free Stock Photos</h2>
-        <select onChange={onSelectionChange} className=" border border-gray-300 p-4 rounded-lg hover:border-black">
+      <div className=" w-full flex items-center justify-between px-4 py-4 sm:py-6">
+        <h2 className=" text-xl md:text-2xl">Free Stock Photos</h2>
+        <select onChange={onSelectionChange} className=" border border-gray-300 p-3 sm:p-4 rounded-lg hover:border-black">
           <option value="trending">Trending</option>
           <option value="new">New</option>
         </select>
