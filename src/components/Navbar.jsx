@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { AiOutlineMenu } from "react-icons/ai";
-import { AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineMenu, AiOutlineUser, AiOutlineSearch } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
+import { UserAuth } from "../context/AuthContext";
 import Signin from "../pages/Signin";
 
 const Navbar = ({ searchTerm }) => {
@@ -11,6 +11,10 @@ const Navbar = ({ searchTerm }) => {
   const [view, setView] = useState(false);
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
+  const { user, logOut } = UserAuth();
+
+  // user logo
+  const [userlogo, setUserLogo] = useState(false);
 
   const handleView = () => {
     setView(false);
@@ -24,8 +28,20 @@ const Navbar = ({ searchTerm }) => {
     navigate(`/search/${searchText}/`);
     setView(true);
   };
+  const handleLogout = async () => {
+    try {
+      await logOut();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div className={`"w-full relative" ${view ? "h-16" : "h-[450px] w-full relative"}`}>
+    <div
+      className={`"w-full relative" ${
+        view ? "h-16" : "h-[400px] w-full relative"
+      }`}
+    >
       {view ? (
         ""
       ) : (
@@ -54,7 +70,7 @@ const Navbar = ({ searchTerm }) => {
               onChange={(e) => setSearchText(e.target.value)}
               value={searchText}
               type="text"
-              placeholder="eg. computer, cats, mountains"
+              placeholder="eg. computer, cats"
               className="text-xl p-2 rounded-lg w-full bg-gray-100 text-black"
             />
             <AiOutlineSearch
@@ -67,31 +83,65 @@ const Navbar = ({ searchTerm }) => {
         ) : (
           ""
         )}
-        <div className=" flex items-center gap-4">
-          <button
-            onClick={() => setShowModal(true)}
-            className={
-              view
-                ? "bg-black text-white p-3 font-bold rounded-xl"
-                : "bg-white text-black p-3 font-bold rounded-xl"
-            }
-          >
-            Join
-          </button>
-          <AiOutlineMenu
-            color={`${view ? "black" : "white"}`}
-            size={30}
-            className=" cursor-pointer"
-          />
+        <div>
+          {user && user?.email ? (
+            <div className=" relative">
+              <button
+                onClick={() => setUserLogo(!userlogo)}
+                className=" bg-white rounded-full p-1 hover:bg-slate-300"
+              >
+                <AiOutlineUser size={30} />
+              </button>
+              <div>
+                {userlogo ? (
+                  <div className=" absolute top-11 right-0 bg-white z-30 flex flex-col gap-2 rounded-lg">
+                    <Link
+                      to={"/account"}
+                      onClick={() => setView(true)}
+                      className=" hover:bg-slate-300 w-full p-2 rounded-t-lg"
+                    >
+                      Account
+                    </Link>
+                    <button
+                      className=" hover:bg-slate-300 w-full p-2 rounded-b-lg"
+                      onClick={handleLogout}
+                    >
+                      LogOut
+                    </button>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className=" flex items-center gap-4">
+              <button
+                onClick={() => setShowModal(true)}
+                className={
+                  view
+                    ? "bg-black text-white p-3 font-bold rounded-xl"
+                    : "bg-white text-black p-3 font-bold rounded-xl"
+                }
+              >
+                Join
+              </button>
+              <AiOutlineMenu
+                color={`${view ? "black" : "white"}`}
+                size={30}
+                className=" cursor-pointer"
+              />
+            </div>
+          )}
         </div>
       </div>
       {/* search bar and titles */}
       {view ? (
         ""
       ) : (
-        <div className=" absolute w-full px-7 top-[50%] left-[50%] transfrom translate-x-[-50%] translate-y-[-50%]">
+        <div className=" absolute w-full px-7 py-3 top-[50%] left-[50%] transfrom translate-x-[-50%] translate-y-[-50%]">
           <div className=" w-full md:w-[60%] mx-auto flex flex-col items-start gap-6 text-white">
-            <h1 className=" text-3xl md:text-4xl text-center">
+            <h1 className=" text-2xl sm:text-3xl md:text-4xl text-center">
               The best free stock photos, royalty free images shared by
               creators.
             </h1>
@@ -101,7 +151,7 @@ const Navbar = ({ searchTerm }) => {
                   onChange={(e) => setSearchText(e.target.value)}
                   value={searchText}
                   type="text"
-                  placeholder="eg. computer, cats, mountains"
+                  placeholder="eg. computer, cats"
                   className="text-xl p-3 rounded-lg w-full text-black"
                 />
                 <AiOutlineSearch

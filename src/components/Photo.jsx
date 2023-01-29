@@ -1,8 +1,11 @@
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import React from "react";
 import { useState } from "react";
 import { AiOutlineHeart, AiOutlineDownload } from "react-icons/ai";
 import { MdOutlineCollectionsBookmark } from "react-icons/md";
 import { SlUserFollow } from "react-icons/sl";
+import { UserAuth } from "../context/AuthContext";
+import { db } from "../firebase";
 
 const Photo = ({ data, modelimg, modelset }) => {
   const [tip, setTip] = useState(false);
@@ -18,11 +21,11 @@ const Photo = ({ data, modelimg, modelset }) => {
   };
   const handleDownload = async (imageUrl) => {
     try {
-      if(imageUrl === data.webformatURL) {
+      if (imageUrl === data.webformatURL) {
         const response = await fetch(imageUrl);
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
+        const a = document.createElement("a");
         a.href = url;
         a.download = "image";
         a.click();
@@ -30,13 +33,30 @@ const Photo = ({ data, modelimg, modelset }) => {
         const response = await fetch(imageUrl);
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
+        const a = document.createElement("a");
         a.href = url;
         a.download = "Video";
         a.click();
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+  // collection handling
+  const [collect, setCollect] = useState(false);
+  const { user } = UserAuth();
+  const photoId = doc(db, "users", `${user?.email}`);
+  const savePhoto = async () => {
+    if (user?.email) {
+      setCollect(!collect);
+      await updateDoc(photoId, {
+        savedPhotos: arrayUnion({
+          id: data.id,
+          img: data.webformatURL,
+        }),
+      });
+    } else {
+      alert("Please login");
     }
   };
   return (
@@ -63,13 +83,25 @@ const Photo = ({ data, modelimg, modelset }) => {
       {/* collect and like icon */}
       {tip ? (
         <div className="absolute top-3 right-4 flex items-center gap-2">
-          <MdOutlineCollectionsBookmark
-            size={38}
-            color="black"
-            className=" bg-white rounded-lg p-2"
-            onMouseEnter={() => setIcon(true)}
-            onMouseLeave={() => setIcon(false)}
-          />
+          <p onClick={savePhoto}>
+            {collect ? (
+              <MdOutlineCollectionsBookmark
+                size={38}
+                color="red"
+                className=" bg-white rounded-lg p-2"
+                onMouseEnter={() => setIcon(true)}
+                onMouseLeave={() => setIcon(false)}
+              />
+            ) : (
+              <MdOutlineCollectionsBookmark
+                size={38}
+                color="black"
+                className=" bg-white rounded-lg p-2"
+                onMouseEnter={() => setIcon(true)}
+                onMouseLeave={() => setIcon(false)}
+              />
+            )}
+          </p>
           {icon ? (
             <p className=" absolute bg-white top-10 right-10 p-1 text-sm rounded-lg">
               Collect
@@ -131,7 +163,11 @@ const Photo = ({ data, modelimg, modelset }) => {
             className=" bg-white rounded-lg p-2"
             onMouseEnter={() => setDownload(true)}
             onMouseLeave={() => setDownload(false)}
-            onClick={() => handleDownload(data.webformatURL ? data.webformatURL : data.videos.tiny.url)}
+            onClick={() =>
+              handleDownload(
+                data.webformatURL ? data.webformatURL : data.videos.tiny.url
+              )
+            }
           />
           {download ? (
             <p className=" absolute bg-white bottom-11 right-0 p-1 text-sm rounded-lg">

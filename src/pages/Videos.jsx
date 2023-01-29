@@ -33,8 +33,8 @@ const Videos = ({ searchText }) => {
       <NavMenu />
 
       <div className=" w-full flex items-center justify-between px-4 py-6">
-        <h2 className=" text-2xl">Free Stock Videos</h2>
-        <select onChange={onSelectionChange} className=" border border-gray-300 p-4 rounded-lg hover:border-black">
+        <h2 className=" text-xl md:text-2xl">Free Stock Videos</h2>
+        <select onChange={onSelectionChange} className=" border border-gray-300 p-3 md:p-4 rounded-lg hover:border-black">
           <option value="trending">Trending</option>
           <option value="new">New</option>
         </select>
