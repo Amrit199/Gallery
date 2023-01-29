@@ -1,3 +1,4 @@
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import React from "react";
 import { useState } from "react";
 import {
@@ -8,6 +9,8 @@ import {
 import { HiInformationCircle, HiShare } from "react-icons/hi";
 import { MdOutlineCollectionsBookmark } from "react-icons/md";
 import { SlUserFollow } from "react-icons/sl";
+import { UserAuth } from "../context/AuthContext";
+import { db } from "../firebase";
 
 const HeroCard = ({ open, close, model }) => {
   const [icon, setIcon] = useState(false);
@@ -36,6 +39,23 @@ const HeroCard = ({ open, close, model }) => {
       console.log(error);
     }
   };
+
+  const [collect, setCollect] = useState(false);
+  const { user } = UserAuth();
+  const photoId = doc(db, "users", `${user?.email}`);
+  const savePhoto = async () => {
+    if (user?.email) {
+      setCollect(!collect);
+      await updateDoc(photoId, {
+        savedPhotos: arrayUnion({
+          id: model.id,
+          img: model.webformatURL,
+        }),
+      });
+    } else {
+      alert("Please login");
+    }
+  };
   if (!open) return null;
   return (
     <div>
@@ -50,11 +70,16 @@ const HeroCard = ({ open, close, model }) => {
             onClick={close}
           />
           {/* body section */}
-          <div className=" w-full md:w-[80%] lg:w-[70%] mx-auto p-1 sm:p-3 py-6 bg-white rounded-lg flex flex-col gap-3">
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            className=" w-full md:w-[80%] lg:w-[70%] mx-auto p-1 sm:p-3 py-6 bg-white rounded-lg flex flex-col gap-3"
+          >
             {/* top tool section */}
             <div className=" w-full flex flex-col md:flex-row gap-3 items-center justify-between lg:justify-around relative">
               <div className=" flex items-center gap-2">
-                <div className=" relative">
+                <div className=" relative" onClick={savePhoto}>
                   <MdOutlineCollectionsBookmark
                     size={55}
                     color="black"
@@ -114,9 +139,6 @@ const HeroCard = ({ open, close, model }) => {
                   src={model.webformatURL}
                   alt="hero images"
                   className="w-full object-contain"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
                 />
               )}
             </div>
